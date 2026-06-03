@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dev Roadmaps 2026 — AI Agent + Frontend</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f8f9fc;
+      --surface: #ffffff;
+      --border: #e8eaed;
+      --border-light: #f1f3f5;
+      --text: #111827;
+      --text-secondary: #4b5563;
+      --muted: #6b7280;
+      --faint: #9ca3af;
+      --primary: #4f46e5;
+      --primary-light: #eef2ff;
+      --primary-dark: #3730a3;
+      --accent: #f59e0b;
+      --success: #10b981;
+      --danger: #ef4444;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --radius-xs: 6px;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+      --shadow-lg: 0 10px 25px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.04);
+      --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      --sidebar-w: 270px;
+      --header-h: 56px;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── HEADER (minimal) ─── */
+    .header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: var(--header-h);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,0.92);
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header-brand .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--primary), #7c3aed);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .header-brand h1 {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: var(--text);
+    }
+
+    .header-brand p {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: -1px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-cal-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      font-size: 13px;
+      font-family: var(--font);
+      font-weight: 500;
+      color: var(--text-secondary);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .header-cal-btn:hover {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .header-cal-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: white;
+    }
+
+    /* ─── LAYOUT ─── */
+    .layout {
+      display: flex;
+      min-height: calc(100vh - var(--header-h));
+    }
+
+    /* ─── SIDEBAR ─── */
+    .sidebar {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      position: sticky;
+      top: var(--header-h);
+      height: calc(100vh - var(--header-h));
+      overflow-y: auto;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 24px;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+    /* Sidebar controls (moved from header) */
+    .sidebar-controls {
+      padding: 20px 18px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .path-switcher {
+      display: flex;
+      gap: 0;
+      background: var(--bg);
+      border-radius: var(--radius-sm);
+      padding: 3px;
+      margin-bottom: 16px;
+    }
+
+    .path-btn {
+      flex: 1;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-family: var(--font);
+      font-weight: 500;
+      background: none;
+      border: none;
+      border-radius: var(--radius-xs);
+      cursor: pointer;
+      color: var(--muted);
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+
+    .path-btn.active {
+      background: var(--surface);
+      color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .path-btn:hover:not(.active) { color: var(--text); }
+
+    /* Progress block */
+    .sidebar-progress {
+      margin-bottom: 14px;
+    }
+
+    .sidebar-progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .sidebar-progress-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--faint);
+    }
+
+    .sidebar-progress-pct {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .sidebar-progress-bar {
+      width: 100%;
+      height: 6px;
+      background: var(--bg);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .sidebar-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), #7c3aed);
+      border-radius: 3px;
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .sidebar-info {
+      font-size: 11px;
+      color: var(--faint);
+      margin-top: 8px;
+    }
+
+    .sidebar-reset-btn {
+      width: 100%;
+      padding: 7px;
+      font-size: 12px;
+      font-family: var(--font);
+      font-weight: 500;
+      color: var(--danger);
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: var(--radius-xs);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .sidebar-reset-btn:hover {
+      background: #fee2e2;
+      border-color: #f87171;
+    }
+
+    /* Sidebar nav */
+    .sidebar-nav {
+      flex: 1;
+      padding: 12px 0;
+    }
+
+    .sidebar-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      color: var(--faint);
+      text-transform: uppercase;
+      padding: 8px 18px 6px;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 18px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all var(--transition);
+      border-left: 3px solid transparent;
+    }
+
+    .sidebar-item:hover {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .sidebar-item.active {
+      color: var(--primary);
+      font-weight: 500;
+      background: var(--primary-light);
+      border-left-color: var(--primary);
+    }
+
+    .sidebar-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      transition: background var(--transition);
+    }
+
+    .sidebar-pct {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--faint);
+    }
+
+    .sidebar-item.active .sidebar-pct { color: var(--primary); }
+
+    /* ─── MAIN ─── */
+    .main {
+      flex: 1;
+      padding: 24px 32px 80px;
+      min-width: 0;
+      max-width: 900px;
+    }
+
+    /* ─── SECTION CARD ─── */
+    .section-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 12px;
+      overflow: hidden;
+      scroll-margin-top: calc(var(--header-h) + 16px);
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+
+    .section-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 18px 20px 14px;
+      cursor: pointer;
+      user-select: none;
+      transition: background var(--transition);
+    }
+
+    .section-header:hover { background: var(--bg); }
+
+    .section-color-bar {
+      width: 4px;
+      height: 40px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .section-meta { flex: 1; min-width: 0; }
+
+    .section-week {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 2px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.2px;
+      color: var(--text);
+    }
+
+    .section-sub {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .section-stats { text-align: right; flex-shrink: 0; }
+
+    .section-pct {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .section-count {
+      font-size: 11px;
+      color: var(--faint);
+      margin-top: 1px;
+    }
+
+    .chevron {
+      font-size: 14px;
+      color: var(--faint);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      flex-shrink: 0;
+    }
+
+    .chevron.open { transform: rotate(180deg); }
+
+    /* PROGRESS BAR */
+    .section-progress { height: 3px; background: var(--bg); }
+    .section-progress-fill {
+      height: 100%;
+      border-radius: 0 2px 2px 0;
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* TABS */
+    .tabs-bar {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      padding: 0 20px;
+      gap: 0;
+    }
+
+    .tab-btn {
+      padding: 10px 16px;
+      font-size: 12px;
+      font-family: var(--font);
+      font-weight: 500;
+      color: var(--muted);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      margin-bottom: -1px;
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+
+    .tab-btn.active { color: var(--text); font-weight: 600; }
+    .tab-btn:hover { color: var(--text); }
+
+    /* CHECKLIST */
+    .checklist { padding: 8px 20px 20px; }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-light);
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+
+    .check-item:last-child { border-bottom: none; }
+    .check-item:hover { background: rgba(79, 70, 229, 0.02); }
+
+    .check-box {
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      border: 2px solid var(--border);
+      background: white;
+      flex-shrink: 0;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition);
+    }
+
+    .check-box.checked { border-color: transparent; }
+    .check-box.checked svg { display: block; }
+    .check-box svg { display: none; }
+
+    .check-label {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text);
+      flex: 1;
+      transition: all var(--transition);
+    }
+
+    .check-item.done .check-label {
+      color: var(--faint);
+      text-decoration: line-through;
+    }
+
+    .check-link { color: var(--primary); text-decoration: none; }
+    .check-link:hover { text-decoration: underline; }
+
+    /* DAYS META */
+    .section-days {
+      font-size: 12px;
+      color: var(--muted);
+      padding: 12px 20px 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ─── CALENDAR (redesigned) ─── */
+    .calendar-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .cal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 28px 20px;
+      background: linear-gradient(135deg, var(--primary), #7c3aed, #a855f7);
+      color: white;
+    }
+
+    .cal-title-group { display: flex; flex-direction: column; gap: 2px; }
+
+    .cal-month-name {
+      font-size: 24px;
+      font-weight: 700;
+      color: white;
+      letter-spacing: -0.5px;
+    }
+
+    .cal-year-tag {
+      font-size: 12px;
+      color: rgba(255,255,255,0.65);
+      font-weight: 400;
+    }
+
+    .cal-nav-cluster { display: flex; align-items: center; gap: 6px; }
+
+    .cal-nav-btn {
+      width: 36px;
+      height: 36px;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      border-radius: var(--radius-sm);
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition);
+    }
+
+    .cal-nav-btn:hover { background: rgba(255,255,255,0.28); transform: scale(1.05); }
+
+    .cal-today-btn {
+      font-size: 12px;
+      font-family: var(--font);
+      font-weight: 600;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      border-radius: var(--radius-sm);
+      padding: 8px 14px;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .cal-today-btn:hover { background: rgba(255,255,255,0.32); }
+
+    .cal-close-btn {
+      font-size: 12px;
+      font-family: var(--font);
+      font-weight: 500;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: rgba(255,255,255,0.8);
+      border-radius: var(--radius-sm);
+      padding: 8px 14px;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .cal-close-btn:hover { background: rgba(255,255,255,0.22); color: white; }
+
+    /* STATS ROW */
+    .cal-stats-row {
+      display: flex;
+      padding: 16px 28px;
+      gap: 24px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+
+    .cal-stat-item { display: flex; flex-direction: column; gap: 2px; }
+
+    .cal-stat-val {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .cal-stat-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .cal-stat-divider {
+      width: 1px;
+      background: var(--border);
+      margin: 4px 0;
+    }
+
+    /* LEGEND */
+    .cal-legend {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      padding: 12px 28px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+      flex-wrap: wrap;
+    }
+
+    .cal-legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--muted); }
+    .cal-legend-dot { width: 10px; height: 10px; border-radius: 4px; }
+
+    /* WEEKDAYS */
+    .cal-weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      padding: 14px 16px 6px;
+      background: white;
+    }
+
+    .cal-weekday-label {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--faint);
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      padding: 4px 0;
+    }
+
+    /* DAYS GRID */
+    .cal-days-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      padding: 4px 16px 20px;
+      gap: 4px;
+    }
+
+    .cal-day {
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      position: relative;
+      transition: all var(--transition);
+      border: 1px solid transparent;
+    }
+
+    .cal-day:hover {
+      background: var(--primary-light);
+      transform: scale(1.05);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .cal-day.empty { visibility: hidden; pointer-events: none; }
+
+    .cal-day.today {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+      box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+    }
+
+    .cal-day.today .cal-day-num { color: white; }
+    .cal-day.today:hover { background: var(--primary-dark); transform: scale(1.08); }
+
+    .cal-day.has-items { border-color: var(--border); }
+    .cal-day.has-items:hover { border-color: var(--primary); }
+
+    .cal-day-num {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .cal-day.other-month .cal-day-num { color: var(--faint); }
+
+    /* Activity dots */
+    .cal-day-dots {
+      display: flex;
+      gap: 2px;
+      margin-top: 4px;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 30px;
+    }
+
+    .cal-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+
+    /* Count badge */
+    .cal-count-badge {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      background: linear-gradient(135deg, var(--success), #059669);
+      color: white;
+      border-radius: 6px;
+      padding: 1px 5px;
+      font-size: 9px;
+      font-weight: 700;
+      min-width: 16px;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    /* Heat levels */
+    .cal-day.heat-1 { background: #e0e7ff; }
+    .cal-day.heat-2 { background: #c7d2fe; }
+    .cal-day.heat-3 { background: #a5b4fc; }
+    .cal-day.heat-4 { background: #818cf8; }
+    .cal-day.heat-4 .cal-day-num { color: white; }
+
+    /* STREAK INDICATOR */
+    .cal-streak-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 28px;
+      border-top: 1px solid var(--border);
+      background: var(--bg);
+    }
+
+    .streak-flame { font-size: 20px; }
+    .streak-text { font-size: 13px; color: var(--muted); }
+    .streak-count { font-weight: 800; color: #f97316; font-size: 18px; }
+
+    /* ─── MODAL ─── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      backdrop-filter: blur(6px);
+    }
+
+    .modal-overlay.open { opacity: 1; visibility: visible; }
+
+    .modal-content {
+      background: white;
+      padding: 28px;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 520px;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+      transform: translateY(20px) scale(0.96);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .modal-overlay.open .modal-content {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-date { font-size: 20px; font-weight: 700; }
+    .modal-subtitle { font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+    .modal-close-btn {
+      background: var(--bg);
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      font-size: 16px;
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all var(--transition);
+    }
+
+    .modal-close-btn:hover { background: var(--border); color: var(--text); }
+
+    .modal-item {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .modal-item:last-child { border-bottom: none; }
+    .modal-item-label { font-size: 13px; color: var(--text); line-height: 1.5; }
+    .modal-item-meta { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+    .modal-item-section-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 10px;
+      font-weight: 600;
+      margin-right: 4px;
+    }
+
+    .modal-item-link {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 12px;
+      display: block;
+      margin-top: 3px;
+    }
+
+    .modal-item-link:hover { text-decoration: underline; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .main { padding: 16px; }
+      .header { padding: 0 16px; }
+      .cal-header { padding: 20px; }
+      .cal-stats-row { padding: 12px 16px; gap: 12px; }
+      .cal-legend { padding: 10px 16px; }
+      .cal-weekdays { padding: 10px 8px 4px; }
+      .cal-days-grid { padding: 0 8px 12px; gap: 2px; }
+      .cal-streak-bar { padding: 12px 16px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══ HEADER ═══ -->
+  <div class="header">
+    <div class="header-brand">
+      <div class="logo-icon">R</div>
+      <div>
+        <h1>Dev Roadmaps</h1>
+        <p id="header-subtitle">Loading…</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="header-cal-btn" id="cal-toggle-btn" onclick="toggleCalendar()">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="2.5" width="13" height="12" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M1.5 6.5h13" stroke="currentColor" stroke-width="1.4"/><path d="M5 1v3M11 1v3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        Calendar
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══ LAYOUT ═══ -->
+  <div class="layout">
+    <nav class="sidebar" id="sidebar">
+      <!-- Controls injected by JS -->
+      <div class="sidebar-controls">
+        <div class="path-switcher">
+          <button class="path-btn active" onclick="switchPath('ai')" id="path-ai">🤖 AI Agent</button>
+          <button class="path-btn" onclick="switchPath('fe')" id="path-fe">🎨 Frontend</button>
+        </div>
+        <div class="sidebar-progress">
+          <div class="sidebar-progress-header">
+            <span class="sidebar-progress-label">Overall</span>
+            <span class="sidebar-progress-pct" id="overall-pct">0%</span>
+          </div>
+          <div class="sidebar-progress-bar">
+            <div class="sidebar-progress-fill" id="overall-fill" style="width:0%"></div>
+          </div>
+          <div class="sidebar-info" id="sidebar-info"></div>
+        </div>
+        <button class="sidebar-reset-btn" onclick="resetAll()">⟲ Reset Progress</button>
+      </div>
+      <div class="sidebar-nav" id="sidebar-nav"></div>
+    </nav>
+    <main class="main" id="main-content"></main>
+  </div>
+
+  <!-- ═══ MODAL ═══ -->
+  <div class="modal-overlay" id="completed-items-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <div class="modal-date" id="modal-date-title"></div>
+          <div class="modal-subtitle" id="modal-count-line"></div>
+        </div>
+        <button class="modal-close-btn" onclick="closeModal()">×</button>
+      </div>
+      <div id="modal-items-list"></div>
+    </div>
+  </div>
+
+  <script>
+    // ==================== AI AGENT DATA ====================
+    const AI_DATA = [
+      {
+        id:"s1", week:"Week 1", days:"Days 1–7 · 5–7 days · 2–3 hrs/day",
+        title:"Python Fundamentals", sub:"The foundation every AI agent stands on", color:"#0ea5e9",
+        topics:["Python syntax, variables, control flow","Functions, decorators, lambda","Classes and OOP (inheritance, dunder methods)","JSON handling and serialization","Async / await basics","API calls with requests and httpx","Virtual environments (venv, conda)","Pip, package management, requirements.txt"],
+        projects:["Calculator CLI — all four operations + history stored in list","Web scraper — fetch and parse Wikipedia page with BeautifulSoup","Async news fetcher — fetch 5 news APIs concurrently with asyncio","File organiser — scan folder, move files into subdirectories by extension"],
+        interview:["What is a decorator in Python?","What is the difference between async def and def?","What is a context manager and when would you use one?","What is the difference between a list and a tuple?","How does Python handle memory management?"],
+        resources:[
+          {label:"Tech With Tim — Python OOP Tutorial", url:"https://www.youtube.com/watch?v=JeznW_7DlB0"},
+          {label:"Python official tutorial", url:"https://docs.python.org/3/tutorial/"},
+          {label:"requests library docs", url:"https://requests.readthedocs.io/en/latest/"},
+          {label:"httpx (async HTTP) docs", url:"https://www.python-httpx.org/"},
+          {label:"Real Python — practical articles", url:"https://realpython.com/"},
+          {label:"Exercism — Python track", url:"https://exercism.org/tracks/python"},
+        ],
+      },
+      {
+        id:"s2", week:"Week 2", days:"Days 8–14 · 5–7 days · 2 hrs/day",
+        title:"LLM Fundamentals", sub:"The brain behind every agent", color:"#8b5cf6",
+        topics:["What LLMs actually are (transformer intuition)","Tokens, tokenization, BPE","Context windows and their limits","Prompt engineering principles","System prompts vs user prompts","Tool calling (function calling)","Structured outputs (JSON mode)","Embeddings — what they are and why they matter","Temperature, top_p, frequency penalty","OpenAI API and Anthropic API basics"],
+        projects:["Resume reviewer — structured JSON feedback via function calling","Tweet generator — take article, generate 5 tweet variations","Token counter CLI — count tokens using tiktoken","Email classifier — return category as JSON"],
+        interview:["What is a token?","What is a context window?","Difference between system prompt and user prompt?","What is tool calling?","What is temperature?","What are embeddings?","Why do LLMs hallucinate?"],
+        resources:[
+          {label:"ChatGPT Prompt Engineering for Developers (DeepLearning.AI)", url:"https://www.deeplearning.ai/short-courses/chatgpt-prompt-engineering-for-developers/"},
+          {label:"Andrej Karpathy — Intro to LLMs (1hr essential watch)", url:"https://www.youtube.com/watch?v=zjkBMFhNj_g"},
+          {label:"3Blue1Brown — How LLMs work (visual)", url:"https://www.youtube.com/watch?v=wjZofJX0v4M"},
+          {label:"OpenAI API reference", url:"https://platform.openai.com/docs/api-reference"},
+          {label:"Anthropic Prompt Engineering Guide", url:"https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview"},
+        ],
+      },
+      {
+        id:"s3", week:"Weeks 3–4", days:"Days 15–28 · 10–14 days · 3 hrs/day",
+        title:"LangChain + LangGraph", sub:"From a single chain to full agent workflows", color:"#10b981",
+        topics:["LangChain core concepts (Chains, Prompts, Models)","LCEL — LangChain Expression Language","Runnables and the pipe operator","Agents in LangChain — ReAct, tool-calling","Custom tools and toolkits","LangGraph state and StateGraph","Nodes, edges, conditional routing","Checkpointing and persistence","Multi-step workflows with cycles","Streaming responses"],
+        projects:["Wikipedia search agent — answers factual questions","SQL agent — natural language questions over SQLite","Research workflow (LangGraph) — search → summarize → cite","Customer support router — conditional routing"],
+        interview:["What is a Chain in LangChain?","What is LCEL?","Difference between LangChain and LangGraph?","What is a ReAct agent?","How does a StateGraph work in LangGraph?","What is checkpointing?"],
+        resources:[
+          {label:"LangChain Python docs", url:"https://python.langchain.com/docs/introduction/"},
+          {label:"LangGraph documentation", url:"https://langchain-ai.github.io/langgraph/"},
+          {label:"LangChain Academy (free official courses)", url:"https://academy.langchain.com/"},
+          {label:"freeCodeCamp — LangChain full course", url:"https://www.youtube.com/watch?v=lG7Uxts9SXs"},
+        ],
+      },
+      {
+        id:"s4", week:"Week 5", days:"Days 29–35 · 5–7 days · 2–3 hrs/day",
+        title:"Tools + Memory Systems", sub:"What turns a chatbot into an agent", color:"#f59e0b",
+        topics:["Web search tools (Tavily, SerpAPI, DuckDuckGo)","Custom Python tools","Code execution tools (sandboxed Python)","Database tools (SQL, NoSQL)","Conversation memory in LangChain","Short-term memory (within a session)","Long-term memory (across sessions)","Checkpointing with LangGraph","Redis for fast memory stores","Vector memory (semantic recall)"],
+        projects:["Personal research assistant — web search + memory","SQL Q&A agent — natural language → SQL","Code interpreter — sandboxed Python execution","Long-term memory bot — remembers preferences via vector DB"],
+        interview:["What makes a 'good' tool description?","How is short-term memory different from long-term?","How do you give an agent persistent memory?","What is checkpointing and why does it matter?","Why use Redis with an agent?"],
+        resources:[
+          {label:"LangChain tools docs", url:"https://python.langchain.com/docs/concepts/tools/"},
+          {label:"LangGraph persistence and memory", url:"https://langchain-ai.github.io/langgraph/concepts/persistence/"},
+          {label:"Tavily Search API (free tier for agents)", url:"https://docs.tavily.com/welcome"},
+        ],
+      },
+      {
+        id:"s5", week:"Week 6", days:"Days 36–42 · 7–10 days · 3 hrs/day",
+        title:"RAG Systems", sub:"Retrieval-Augmented Generation, end to end", color:"#ef4444",
+        topics:["What RAG actually is — flow and components","Embeddings — OpenAI, Cohere, open-source","Chunking strategies (fixed-size, semantic, recursive)","Vector databases (Pinecone, Chroma, FAISS, Weaviate)","Retrieval — similarity search, MMR, hybrid","Reranking with cross-encoders","Hybrid search (BM25 + vector)","Building production RAG pipelines","Evaluating RAG quality (RAGAS, TruLens)","Advanced patterns — agentic RAG, multi-hop"],
+        projects:["Chat with your PDFs — upload PDFs, get cited answers","Internal wiki Q&A — ingest Notion/Confluence export","Resume RAG — match resume against 100 job descriptions","Hybrid search engine — BM25 + vector + reranking"],
+        interview:["What problem does RAG solve?","How do you decide on chunk size?","Difference between Pinecone, Chroma, and FAISS?","What is reranking and why use it?","What is hybrid search?","How do you evaluate RAG quality?"],
+        resources:[
+          {label:"LangChain RAG tutorial", url:"https://python.langchain.com/docs/tutorials/rag/"},
+          {label:"ChromaDB docs", url:"https://docs.trychroma.com/"},
+          {label:"LangChain — RAG From Scratch (full playlist)", url:"https://www.youtube.com/playlist?list=PLfaIDFEXuae2LXbO1_PKyVJiQ23ZztA0x"},
+          {label:"RAG Techniques (production patterns)", url:"https://github.com/NirDiamant/RAG_Techniques"},
+        ],
+      },
+      {
+        id:"s6", week:"Week 7", days:"Days 43–49 · 7–10 days",
+        title:"Multi-Agent Systems", sub:"When one agent isn't enough", color:"#ec4899",
+        topics:["CrewAI — role-based agent crews","LangGraph multi-agent architectures","Supervisor pattern","Planner / Executor pattern","Agent-to-agent communication","Reflection loops","Hierarchical agents","Autonomous workflows (long-running)","Shared state vs message passing","When NOT to use multi-agent"],
+        projects:["Content production crew — researcher + writer + editor","Stock analysis crew — news + financials + summary agents","Code review crew — security + performance + style agents","Travel planner — flights + hotels + activities agents"],
+        interview:["When to use multi-agent vs single agent?","What is the Supervisor pattern?","What is the Planner/Executor pattern?","How do agents communicate in CrewAI vs LangGraph?","What is a reflection loop?","How do you debug multi-agent systems?"],
+        resources:[
+          {label:"CrewAI documentation", url:"https://docs.crewai.com/"},
+          {label:"LangGraph multi-agent tutorials", url:"https://langchain-ai.github.io/langgraph/tutorials/multi_agent/multi-agent-collaboration/"},
+          {label:"DeepLearning.AI — Multi AI Agent Systems with crewAI", url:"https://www.deeplearning.ai/short-courses/multi-ai-agent-systems-with-crewai/"},
+          {label:"Anthropic — Building effective agents (must read)", url:"https://www.anthropic.com/research/building-effective-agents"},
+        ],
+      },
+      {
+        id:"s7", week:"Week 8", days:"Days 50–56 · goal: live on public URL",
+        title:"Deployment + Production", sub:"Ship it. Then make it not break.", color:"#06b6d4",
+        topics:["FastAPI — wrap agents as REST APIs","Streamlit — quick interactive demos","Docker — containerize your agent","Railway, Render, Fly.io — easy deployment","AWS basics — EC2, Lambda, S3","Environment variables and secrets","Structured logging (Loguru)","Monitoring with LangSmith / Langfuse","Rate limiting and quotas","Cost optimization (caching, model selection)"],
+        projects:["Deploy all prior projects to public URLs","FastAPI wrapper around a LangGraph agent","Add LangSmith monitoring to an existing agent","Dockerize an agent and deploy to Railway"],
+        interview:["Why use Docker for an AI agent?","How do you handle API keys in production?","How do you reduce LLM costs?","How do you monitor an LLM application?","How do you rate-limit an agent API?"],
+        resources:[
+          {label:"FastAPI official tutorial", url:"https://fastapi.tiangolo.com/tutorial/"},
+          {label:"Docker getting started", url:"https://docs.docker.com/get-started/"},
+          {label:"LangSmith docs (monitoring)", url:"https://docs.smith.langchain.com/"},
+          {label:"Railway docs", url:"https://docs.railway.com/"},
+        ],
+      },
+      {
+        id:"s8", week:"Ongoing", days:"Ongoing · build 3+ deployed projects",
+        title:"Portfolio Projects", sub:"Ten projects that get you hired", color:"#84cc16",
+        topics:["PDF Q&A Chatbot — Streamlit + LangChain + ChromaDB (Beginner)","SQL Database Agent — FastAPI + LangChain + SQLite (Beginner)","Research Assistant Agent — LangGraph + Tavily + FastAPI (Intermediate)","Content Production Crew — CrewAI + Streamlit + Render (Intermediate)","Voice-Enabled Personal Assistant — Whisper + OpenAI + ElevenLabs","AI Code Review Bot — LangGraph + GitHub API + Railway","Customer Support Multi-Agent — LangGraph + RAG + Postgres + Redis (Advanced)","Trading Strategy Backtester — LangGraph + yfinance + plotly (Advanced)","Autonomous Job Application Agent — LangGraph + Playwright + vector DB","Open-Source Agent Framework Contribution — LangChain/LangGraph/CrewAI"],
+        projects:["README.md with demo gif, setup steps, architecture diagram","ARCHITECTURE.md with design decisions and diagram",".env.example (never commit real .env)","requirements.txt with pinned versions","Dockerfile for reproducible builds","docker-compose.yml","src/ with agents/, tools/, api/, main.py","tests/ directory with unit + integration tests",".github/workflows/ for CI/CD lint + test"],
+        interview:["Tell me about an AI project you shipped","How do you keep up with the AI space?","Describe a time you debugged a hard AI bug","Where do you see AI agents in 3 years?","Why hire you over an experienced ML engineer?","Design a customer support agent for a SaaS company","Design a RAG system for 10 million documents","How would you reduce a $50K/month LLM bill?"],
+        resources:[
+          {label:"LangChain templates (production-ready starters)", url:"https://github.com/langchain-ai/langchain/tree/master/templates"},
+          {label:"CrewAI examples repo", url:"https://github.com/crewAIInc/crewAI-examples"},
+          {label:"Awesome LLM Agents", url:"https://github.com/jenqyang/Awesome-AI-Agents"},
+          {label:"FastAPI production template", url:"https://github.com/tiangolo/full-stack-fastapi-template"},
+        ],
+      },
+    ];
+
+    // ==================== FRONTEND DATA ====================
+    const FE_DATA = [
+      {
+        id:"fe1", week:"Phase 1", days:"~4–6 weeks · 2–3 hrs/day",
+        title:"Intermediate HTML & CSS", sub:"Level up your markup and styling game", color:"#f97316",
+        topics:["Emmet for fast HTML writing","SVG basics and inline usage","Tables — when and how to use them","Default browser styles and CSS resets","CSS Units — em, rem, vw, vh, %, px","More CSS properties (overflow, opacity, filter)","Advanced selectors (combinators, pseudo-classes, pseudo-elements)","CSS positioning (relative, absolute, fixed, sticky)","CSS custom properties (variables)","CSS functions — calc(), clamp(), min(), max()","Flexbox — deep dive","CSS Grid — deep dive","Grid vs Flexbox — when to use which","Responsive design principles","Media queries and breakpoints","Accessibility — ARIA, semantic HTML, keyboard navigation","Form basics and styled forms","Browser DevTools mastery"],
+        projects:["Admin dashboard — full CSS Grid layout with sidebar, header, main content","Sign-up form — styled with Flexbox, validation states","Landing page recreation — pixel-perfect clone of a real site"],
+        interview:["What is the difference between em and rem?","How does CSS specificity work?","Explain the CSS box model","What is BEM naming convention?","What are pseudo-elements? Give examples.","Difference between display:none and visibility:hidden?","How do you center a div both horizontally and vertically?","When would you use CSS Grid vs Flexbox?"],
+        resources:[
+          {label:"The Odin Project — Intermediate HTML & CSS", url:"https://www.theodinproject.com/paths/full-stack-javascript/courses/intermediate-html-and-css"},
+          {label:"CSS Tricks — A Complete Guide to Flexbox", url:"https://css-tricks.com/snippets/css/a-guide-to-flexbox/"},
+          {label:"CSS Tricks — A Complete Guide to Grid", url:"https://css-tricks.com/snippets/css/complete-guide-grid/"},
+          {label:"MDN Web Docs — CSS reference", url:"https://developer.mozilla.org/en-US/docs/Web/CSS/Reference"},
+          {label:"Kevin Powell — CSS YouTube Channel", url:"https://www.youtube.com/@KevinPowell"},
+          {label:"Flexbox Froggy — CSS Flexbox game", url:"https://flexboxfroggy.com/"},
+          {label:"Grid Garden — CSS Grid game", url:"https://cssgridgarden.com/"},
+        ],
+      },
+      {
+        id:"fe2", week:"Phase 2", days:"~8–10 weeks · 3 hrs/day",
+        title:"JavaScript", sub:"Make the web dynamic and interactive", color:"#eab308",
+        topics:["JavaScript history and how it works in the browser","Variables — let, const, var and scoping","Data types — primitives and objects","Functions — declarations, expressions, arrow functions","Arrays and array methods (map, filter, reduce)","Objects and object methods","DOM manipulation — selecting, creating, modifying elements","Event listeners and event delegation","Fetch API and async/await","Promises and the event loop","Error handling — try/catch","Object-Oriented JavaScript — classes, inheritance","Factory functions and the module pattern","SOLID principles in JavaScript","Webpack and module bundling","ES Modules (import/export)","Testing with Jest","Local Storage and Session Storage","JSON — parse and stringify"],
+        projects:["Etch-a-Sketch — DOM manipulation practice","Calculator — full working calculator in the browser","Library app — OOP-based book tracker","Tic-tac-toe — module pattern, factory functions","Todo List — full CRUD with local storage","Restaurant page — multi-page SPA using Webpack","Weather app — async fetch from a public API"],
+        interview:["What is the difference between == and ===?","Explain event delegation","What is a closure?","What is the difference between null and undefined?","What is the event loop?","Explain async/await and how it relates to Promises","What is the difference between var, let, and const?","What is prototypal inheritance?","How does the DOM relate to HTML?","What are arrow functions and how do they differ from regular functions?"],
+        resources:[
+          {label:"The Odin Project — JavaScript", url:"https://www.theodinproject.com/paths/full-stack-javascript/courses/javascript"},
+          {label:"javascript.info — Modern JavaScript Tutorial", url:"https://javascript.info/"},
+          {label:"Eloquent JavaScript (free online book)", url:"https://eloquentjavascript.net/"},
+          {label:"MDN Web Docs — JavaScript", url:"https://developer.mozilla.org/en-US/docs/Web/JavaScript"},
+          {label:"Fireship — JavaScript in 100 seconds (YouTube)", url:"https://www.youtube.com/watch?v=DHjqpvDnNGE"},
+          {label:"Jest documentation", url:"https://jestjs.io/docs/getting-started"},
+        ],
+      },
+      {
+        id:"fe3", week:"Phase 3", days:"~4–5 weeks · 2–3 hrs/day",
+        title:"Advanced HTML & CSS", sub:"Animations, responsive mastery, and CSS architecture", color:"#a855f7",
+        topics:["CSS animations — keyframes, animation properties","CSS transitions — timing functions, transforms","Responsive images — srcset, sizes, picture element","CSS custom properties advanced patterns","Accessibility advanced — focus management, live regions","Performance — critical rendering path, layout thrashing","CSS architecture — BEM, SMACSS, OOCSS","CSS-in-JS concepts","Sass / SCSS basics","Design systems and component libraries","Typography advanced — web fonts, variable fonts","Color theory for UI","Dark mode with CSS custom properties","Print stylesheets"],
+        projects:["Balanced binary search tree (algorithm focused)","Knights Travails — graph algorithm with DOM visualization"],
+        interview:["What is the difference between transition and animation?","Explain the difference between will-change and transform for GPU compositing","What is critical rendering path?","How do you handle CSS specificity conflicts in a large codebase?","What are CSS custom properties good for?","How would you implement a dark mode toggle?"],
+        resources:[
+          {label:"The Odin Project — Advanced HTML and CSS", url:"https://www.theodinproject.com/paths/full-stack-javascript/courses/advanced-html-and-css"},
+          {label:"Sass documentation", url:"https://sass-lang.com/documentation/"},
+          {label:"CSS animations — MDN", url:"https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_animations"},
+          {label:"web.dev — Performance", url:"https://web.dev/performance/"},
+          {label:"Smashing Magazine — CSS architecture", url:"https://www.smashingmagazine.com/category/css/"},
+        ],
+      },
+      {
+        id:"fe4", week:"Phase 4", days:"~6–8 weeks · 3 hrs/day",
+        title:"React", sub:"The most popular UI library in the industry", color:"#06b6d4",
+        topics:["What React is and why it exists","Components — function components","JSX syntax deep dive","Props — passing data to child components","State — useState hook","Rendering — how React reconciliation works","Lists and keys","Handling events in React","Forms in React — controlled components","Side effects — useEffect hook","useRef and DOM interaction","Context API — avoiding prop drilling","Custom hooks — extracting reusable logic","React Router — client-side routing","Performance — useMemo, useCallback, React.memo","Testing React — React Testing Library","Class components (for legacy code understanding)"],
+        projects:["CV application — build a CV builder with React state","Memory card game — hooks, useEffect, state management","Shopping cart — React Router, context, component architecture","Where's Waldo photo tagging app — full React with backend calls"],
+        interview:["What is the virtual DOM?","Explain React's reconciliation algorithm","What is the difference between state and props?","When would you use useEffect?","What is prop drilling and how do you avoid it?","What is a custom hook?","When would you use useCallback vs useMemo?","What is React.memo and when would you use it?","What are the rules of hooks?","How do you handle forms in React?"],
+        resources:[
+          {label:"The Odin Project — React", url:"https://www.theodinproject.com/paths/full-stack-javascript/courses/react"},
+          {label:"React official docs (react.dev)", url:"https://react.dev/"},
+          {label:"Scrimba — Learn React for free", url:"https://scrimba.com/learn/learnreact"},
+          {label:"React Testing Library docs", url:"https://testing-library.com/docs/react-testing-library/intro/"},
+          {label:"React Router docs", url:"https://reactrouter.com/en/main"},
+          {label:"Fireship — React in 100 seconds", url:"https://www.youtube.com/watch?v=Tn6-PIqc4UM"},
+        ],
+      },
+      {
+        id:"fe5", week:"Phase 5", days:"~2 weeks · 2 hrs/day",
+        title:"Databases", sub:"Store and query data with SQL and PostgreSQL", color:"#10b981",
+        topics:["What is a relational database?","SQL fundamentals — SELECT, INSERT, UPDATE, DELETE","WHERE clauses and filtering","Joins — INNER, LEFT, RIGHT, FULL","Aggregation — COUNT, SUM, AVG, GROUP BY","Subqueries and CTEs","Indexes and performance","PostgreSQL setup and psql CLI","Schema design — normalization, foreign keys","CRUD operations with PostgreSQL","Database relationships — 1:1, 1:N, N:M"],
+        projects:["SQL Zoo exercises — hands-on SQL challenges","Database schema design for a social media app"],
+        interview:["What is the difference between SQL and NoSQL?","What is a JOIN and when would you use it?","What are database indexes and how do they work?","Explain normalization","What is a foreign key?","What is the difference between WHERE and HAVING?"],
+        resources:[
+          {label:"The Odin Project — Databases", url:"https://www.theodinproject.com/paths/full-stack-javascript/courses/databases"},
+          {label:"SQL Zoo — interactive SQL learning", url:"https://sqlzoo.net/"},
+          {label:"PostgreSQL documentation", url:"https://www.postgresql.org/docs/"},
+          {label:"Mode SQL Tutorial", url:"https://mode.com/sql-tutorial/"},
+        ],
+      },
+      {
+        id:"fe6", week:"Phase 6", days:"~10–14 weeks · 3 hrs/day",
+        title:"NodeJS & Backend", sub:"Take JavaScript to the server with Express + PostgreSQL", color:"#84cc16",
+        topics:["Introduction to Node.js and npm","The Node.js event loop (vs browser event loop)","Core modules — fs, path, http","Express.js basics — routing, middleware","MVC architecture","Template engines — EJS, Pug","RESTful API design","Handling JSON with Express","Authentication — sessions, cookies, JWT","Passport.js — local and OAuth strategies","PostgreSQL with node-postgres (pg)","Prisma ORM","File uploads with Multer","Environment variables and .env","Error handling middleware","Testing backend — Supertest + Jest","Deployment to Railway / Render"],
+        projects:["Basic informational site — Express routes, EJS templates","Mini message board — CRUD, Express, PostgreSQL","Members Only Club — authentication, sessions","Blog API — REST API with full CRUD","File Uploader — Multer, cloud storage, auth","Inventory Application — full MVC with PostgreSQL","Shopping Cart / Odin-Book social network (capstone)"],
+        interview:["What is middleware in Express?","Explain the difference between authentication and authorization","What is JWT and how does it work?","What is the difference between cookies and localStorage?","How do you prevent SQL injection?","What is CORS and how do you handle it?","What is an ORM and why use one?","How do you structure a large Node.js project?","What is the difference between PUT and PATCH?","How would you handle file uploads securely?"],
+        resources:[
+          {label:"The Odin Project — NodeJS", url:"https://www.theodinproject.com/paths/full-stack-javascript/courses/nodejs"},
+          {label:"Express.js documentation", url:"https://expressjs.com/"},
+          {label:"Prisma documentation", url:"https://www.prisma.io/docs/"},
+          {label:"Passport.js documentation", url:"https://www.passportjs.org/"},
+          {label:"node-postgres (pg) docs", url:"https://node-postgres.com/"},
+          {label:"JWT.io — learn about JSON Web Tokens", url:"https://jwt.io/introduction"},
+        ],
+      },
+      {
+        id:"fe7", week:"Phase 7", days:"~3–4 weeks · ongoing",
+        title:"Getting Hired", sub:"Land your first dev job", color:"#ec4899",
+        topics:["Preparing your portfolio — what to include","Writing a compelling resume for dev roles","LinkedIn and GitHub profile optimization","How to write a cold outreach message","Technical interview preparation","Behavioral interview — STAR method","Negotiating your first offer","Freelancing vs employment — pros/cons","Open source contributions","Staying current — blogs, newsletters, conferences"],
+        projects:["Personal portfolio site — deployed and polished","Capstone project — your best work, fully documented","LinkedIn profile optimized with all projects"],
+        interview:["Tell me about yourself (90-second pitch)","What's your favorite project and why?","Where do you see yourself in 3 years?","How do you stay current with web development?","Walk me through a challenging problem you solved","How do you handle working in a team?","What is your development process?","How do you approach debugging?"],
+        resources:[
+          {label:"The Odin Project — Getting Hired", url:"https://www.theodinproject.com/paths/full-stack-javascript/courses/getting-hired"},
+          {label:"Levels.fyi — salary data", url:"https://www.levels.fyi/"},
+          {label:"Tech Interview Handbook", url:"https://www.techinterviewhandbook.org/"},
+          {label:"Frontend Mentor — practice real projects", url:"https://www.frontendmentor.io/"},
+          {label:"LeetCode — algorithm practice", url:"https://leetcode.com/"},
+        ],
+      },
+    ];
+
+    // ==================== SHARED STATE & LOGIC ====================
+    const PATHS = { ai: AI_DATA, fe: FE_DATA };
+    const PATH_STORAGE_KEYS = { ai: 'aira_progress', fe: 'fe_progress' };
+    const TABS = ["Topics", "Projects", "Interview Q", "Resources"];
+
+    let currentPath = 'ai';
+    let openSections = new Set();
+    let activeTabs = {};
+    let showCalendar = false;
+    let displayedMonth = new Date().getMonth();
+    let displayedYear = new Date().getFullYear();
+
+    function getActiveData() { return PATHS[currentPath]; }
+    function getStorageKey() { return PATH_STORAGE_KEYS[currentPath]; }
+
+    function switchPath(path) {
+      currentPath = path;
+      openSections = new Set();
+      activeTabs = {};
+      showCalendar = false;
+      document.getElementById('path-ai').classList.toggle('active', path === 'ai');
+      document.getElementById('path-fe').classList.toggle('active', path === 'fe');
+      document.getElementById('cal-toggle-btn').classList.remove('active');
+      if (getActiveData().length > 0) openSections.add(getActiveData()[0].id);
+      renderAll();
+    }
+
+    function getProgress() {
+      try {
+        const data = JSON.parse(localStorage.getItem(getStorageKey()) || '{}');
+        const converted = {};
+        for (const [k, v] of Object.entries(data)) {
+          if (typeof v === 'boolean') converted[k] = v ? new Date().toISOString().split('T')[0] : null;
+          else if (typeof v === 'string' && v.match(/^\d{4}-\d{2}-\d{2}$/)) converted[k] = v;
+          else converted[k] = v;
+        }
+        return converted;
+      } catch(e) { return {}; }
+    }
+    function saveProgress(p) {
+      const f = {};
+      for (const [k,v] of Object.entries(p)) { if (v) f[k] = v; }
+      localStorage.setItem(getStorageKey(), JSON.stringify(f));
+    }
+    function formatDate(d) { return d.toISOString().split('T')[0]; }
+    function getToday() { return formatDate(new Date()); }
+
+    function getSectionItems(s) {
+      return [
+        ...s.topics.map((t,i) => ({key:`topic_${i}`,label:t,tab:0})),
+        ...s.projects.map((t,i) => ({key:`project_${i}`,label:t,tab:1})),
+        ...s.interview.map((t,i) => ({key:`interview_${i}`,label:t,tab:2})),
+        ...s.resources.map((t,i) => ({key:`resource_${i}`,label:t.label,url:t.url,tab:3})),
+      ];
+    }
+    function getSectionStats(s, progress) {
+      const items = getSectionItems(s);
+      const done = items.filter(it => progress[`${s.id}_${it.key}`]).length;
+      return { done, total: items.length, pct: items.length ? Math.round(done/items.length*100) : 0 };
+    }
+
+    function renderAll() {
+      const progress = getProgress();
+      const data = getActiveData();
+      const totalItems = data.reduce((acc, s) => acc + getSectionItems(s).length, 0);
+
+      document.getElementById('header-subtitle').textContent =
+        `${currentPath === 'ai' ? 'AI Agent · 60 days' : 'Frontend · ~40 weeks'} · ${data.length} sections`;
+
+      document.getElementById('sidebar-info').textContent =
+        `${totalItems} items across ${data.length} sections`;
+
+      renderSidebar(progress);
+      if (showCalendar) {
+        document.getElementById('main-content').innerHTML = buildCalendarHTML();
+      } else {
+        renderMain(progress);
+      }
+      updateOverall(progress);
+    }
+
+    function updateOverall(progress) {
+      let total = 0, done = 0;
+      getActiveData().forEach(s => {
+        const st = getSectionStats(s, progress);
+        total += st.total; done += st.done;
+      });
+      const pct = total ? Math.round(done/total*100) : 0;
+      document.getElementById('overall-fill').style.width = pct + '%';
+      document.getElementById('overall-pct').textContent = pct + '%';
+    }
+
+    function renderSidebar(progress) {
+      const nav = document.getElementById('sidebar-nav');
+      nav.innerHTML = `<div class="sidebar-label">${currentPath === 'ai' ? 'AI Agent' : 'Frontend'} Path</div>`;
+      getActiveData().forEach(s => {
+        const st = getSectionStats(s, progress);
+        const a = document.createElement('a');
+        a.className = 'sidebar-item' + (openSections.has(s.id) ? ' active' : '');
+        a.href = '#' + s.id;
+        a.innerHTML = `
+          <span class="sidebar-dot" style="background:${st.pct===100?'#10b981':s.color}"></span>
+          <span style="flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.title}</span>
+          <span class="sidebar-pct">${st.pct}%</span>
+        `;
+        a.onclick = e => { e.preventDefault(); document.getElementById(s.id)?.scrollIntoView({behavior:'smooth',block:'start'}); };
+        nav.appendChild(a);
+      });
+    }
+
+    function renderMain(progress) {
+      const main = document.getElementById('main-content');
+      main.innerHTML = '';
+      getActiveData().forEach(s => {
+        const st = getSectionStats(s, progress);
+        const isOpen = openSections.has(s.id);
+        const activeTab = activeTabs[s.id] || 0;
+
+        const card = document.createElement('div');
+        card.className = 'section-card';
+        card.id = s.id;
+
+        const hdr = document.createElement('div');
+        hdr.className = 'section-header';
+        hdr.innerHTML = `
+          <div class="section-color-bar" style="background:${st.pct===100?'#10b981':s.color}"></div>
+          <div class="section-meta">
+            <div class="section-week" style="color:${s.color}">${s.week}</div>
+            <div class="section-title">${s.title}</div>
+            <div class="section-sub">${s.sub}</div>
+          </div>
+          <div class="section-stats">
+            <div class="section-pct" style="color:${st.pct===100?'#10b981':'var(--text)'}">${st.pct}%</div>
+            <div class="section-count">${st.done}/${st.total} done</div>
+          </div>
+          <div class="chevron ${isOpen?'open':''}">▾</div>
+        `;
+        hdr.onclick = () => {
+          if (openSections.has(s.id)) openSections.delete(s.id);
+          else openSections.add(s.id);
+          renderAll();
+        };
+        card.appendChild(hdr);
+
+        const pbar = document.createElement('div');
+        pbar.className = 'section-progress';
+        pbar.innerHTML = `<div class="section-progress-fill" style="width:${st.pct}%;background:${st.pct===100?'#10b981':s.color}"></div>`;
+        card.appendChild(pbar);
+
+        if (isOpen) {
+          const meta = document.createElement('div');
+          meta.className = 'section-days';
+          meta.innerHTML = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1"/><path d="M6 3.5V6.5L8 8" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg> ${s.days}`;
+          card.appendChild(meta);
+
+          const tabBar = document.createElement('div');
+          tabBar.className = 'tabs-bar';
+          TABS.forEach((t,i) => {
+            const btn = document.createElement('button');
+            btn.className = 'tab-btn' + (activeTab === i ? ' active' : '');
+            btn.textContent = t;
+            if (activeTab === i) btn.style.borderBottomColor = s.color;
+            btn.onclick = () => { activeTabs[s.id] = i; renderAll(); };
+            tabBar.appendChild(btn);
+          });
+          card.appendChild(tabBar);
+
+          const list = document.createElement('div');
+          list.className = 'checklist';
+
+          let items;
+          if (activeTab === 0) items = s.topics.map((t,i) => ({key:`topic_${i}`,label:t}));
+          else if (activeTab === 1) items = s.projects.map((t,i) => ({key:`project_${i}`,label:t}));
+          else if (activeTab === 2) items = s.interview.map((t,i) => ({key:`interview_${i}`,label:t}));
+          else items = s.resources.map((t,i) => ({key:`resource_${i}`,label:t.label,url:t.url}));
+
+          items.forEach(it => {
+            const k = `${s.id}_${it.key}`;
+            const checked = !!progress[k];
+            const row = document.createElement('div');
+            row.className = 'check-item' + (checked ? ' done' : '');
+            row.innerHTML = `
+              <div class="check-box ${checked?'checked':''}" style="${checked?`background:${s.color};border-color:${s.color}`:''}">
+                <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                  <path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <span class="check-label">${it.url ? `<a class="check-link" href="${it.url}" target="_blank" rel="noopener">${it.label}</a>` : it.label}</span>
+            `;
+            row.onclick = (e) => {
+              if (e.target.tagName === 'A') return;
+              const p = getProgress();
+              p[k] = p[k] ? null : getToday();
+              if (!p[k]) delete p[k];
+              saveProgress(p);
+              renderAll();
+            };
+            list.appendChild(row);
+          });
+          card.appendChild(list);
+        }
+        main.appendChild(card);
+      });
+    }
+
+    function resetAll() {
+      if (confirm('Reset all progress for this path? Cannot be undone.')) {
+        localStorage.removeItem(getStorageKey());
+        renderAll();
+      }
+    }
+
+    function toggleCalendar() {
+      showCalendar = !showCalendar;
+      document.getElementById('cal-toggle-btn').classList.toggle('active', showCalendar);
+      renderAll();
+    }
+
+    // ==================== CALENDAR ====================
+    function getCompletedItemsByDate() {
+      const itemsByDate = {};
+      for (const [pathKey, storageKey] of Object.entries(PATH_STORAGE_KEYS)) {
+        let progress = {};
+        try { progress = JSON.parse(localStorage.getItem(storageKey) || '{}'); } catch(e) {}
+        const pathData = PATHS[pathKey];
+        for (const [key, dateStr] of Object.entries(progress)) {
+          if (!dateStr) continue;
+          if (!itemsByDate[dateStr]) itemsByDate[dateStr] = [];
+          const parts = key.split('_');
+          if (parts.length < 2) continue;
+          const sectionId = parts[0];
+          const itemType = parts[1];
+          const itemIndex = parseInt(parts[2]);
+          const section = pathData.find(s => s.id === sectionId);
+          if (!section) continue;
+          let arr = [];
+          if (itemType === 'topic') arr = section.topics;
+          else if (itemType === 'project') arr = section.projects;
+          else if (itemType === 'interview') arr = section.interview;
+          else if (itemType === 'resource') arr = section.resources;
+          const item = arr[itemIndex];
+          if (!item) continue;
+          itemsByDate[dateStr].push({
+            label: item.label || item,
+            url: item.url || '',
+            section: section.title,
+            color: section.color,
+            path: pathKey,
+            type: itemType
+          });
+        }
+      }
+      return itemsByDate;
+    }
+
+    function getCalendarStats(completedByDate) {
+      const totalDays = Object.keys(completedByDate).length;
+      const totalItems = Object.values(completedByDate).reduce((a, arr) => a + arr.length, 0);
+      let streak = 0;
+      const today = new Date();
+      for (let i = 0; i < 365; i++) {
+        const d = new Date(today);
+        d.setDate(d.getDate() - i);
+        const ds = formatDate(d);
+        if (completedByDate[ds]) streak++;
+        else if (i > 0) break;
+      }
+      const monthKey = `${displayedYear}-${String(displayedMonth+1).padStart(2,'0')}`;
+      const thisMonthItems = Object.entries(completedByDate)
+        .filter(([k]) => k.startsWith(monthKey))
+        .reduce((a, [, arr]) => a + arr.length, 0);
+      return { totalDays, totalItems, streak, thisMonthItems };
+    }
+
+    function buildCalendarHTML() {
+      const completedByDate = getCompletedItemsByDate();
+      const stats = getCalendarStats(completedByDate);
+      const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+      const firstDay = new Date(displayedYear, displayedMonth, 1);
+      const lastDay = new Date(displayedYear, displayedMonth + 1, 0);
+      const startingDay = firstDay.getDay();
+      const daysInMonth = lastDay.getDate();
+      const today = new Date();
+
+      let daysHTML = '';
+      for (let i = 0; i < startingDay; i++) {
+        daysHTML += '<div class="cal-day empty"></div>';
+      }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const date = new Date(displayedYear, displayedMonth, day);
+        const dateStr = formatDate(date);
+        const isToday = date.toDateString() === today.toDateString();
+        const items = completedByDate[dateStr] || [];
+        const count = items.length;
+        const heatLevel = count === 0 ? 0 : count === 1 ? 1 : count <= 3 ? 2 : count <= 6 ? 3 : 4;
+
+        let dotsHTML = '';
+        if (count > 0 && count <= 5) {
+          items.slice(0,5).forEach(item => {
+            dotsHTML += `<div class="cal-dot" style="background:${item.color}"></div>`;
+          });
+        }
+
+        const classes = ['cal-day', isToday ? 'today' : '', count > 0 ? `heat-${heatLevel}` : ''].filter(Boolean).join(' ');
+        const onclick = count > 0 ? `onclick="showCompletedItems('${dateStr}')"` : '';
+
+        daysHTML += `
+          <div class="${classes}" data-date="${dateStr}" ${onclick}>
+            <div class="cal-day-num">${day}</div>
+            ${count > 0 ? `<div class="cal-day-dots">${dotsHTML}</div>` : ''}
+            ${count > 0 ? `<div class="cal-count-badge">${count}</div>` : ''}
+          </div>
+        `;
+      }
+
+      return `
+        <div class="calendar-wrap">
+          <div class="cal-header">
+            <div class="cal-title-group">
+              <div class="cal-month-name">${monthNames[displayedMonth]}</div>
+              <div class="cal-year-tag">${displayedYear} · Learning Activity</div>
+            </div>
+            <div class="cal-nav-cluster">
+              <button class="cal-nav-btn" onclick="prevMonth()">◀</button>
+              <button class="cal-today-btn" onclick="goToToday()">Today</button>
+              <button class="cal-nav-btn" onclick="nextMonth()">▶</button>
+              <button class="cal-close-btn" onclick="toggleCalendar()">✕ Close</button>
+            </div>
+          </div>
+
+          <div class="cal-stats-row">
+            <div class="cal-stat-item">
+              <div class="cal-stat-val">${stats.totalDays}</div>
+              <div class="cal-stat-label">Active Days</div>
+            </div>
+            <div class="cal-stat-divider"></div>
+            <div class="cal-stat-item">
+              <div class="cal-stat-val">${stats.totalItems}</div>
+              <div class="cal-stat-label">Items Done</div>
+            </div>
+            <div class="cal-stat-divider"></div>
+            <div class="cal-stat-item">
+              <div class="cal-stat-val">${stats.thisMonthItems}</div>
+              <div class="cal-stat-label">This Month</div>
+            </div>
+          </div>
+
+          <div class="cal-legend">
+            <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#e0e7ff"></div> 1 item</div>
+            <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#c7d2fe"></div> 2–3</div>
+            <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#a5b4fc"></div> 4–6</div>
+            <div class="cal-legend-item"><div class="cal-legend-dot" style="background:#818cf8"></div> 7+</div>
+          </div>
+
+          <div class="cal-weekdays">
+            <div class="cal-weekday-label">Sun</div>
+            <div class="cal-weekday-label">Mon</div>
+            <div class="cal-weekday-label">Tue</div>
+            <div class="cal-weekday-label">Wed</div>
+            <div class="cal-weekday-label">Thu</div>
+            <div class="cal-weekday-label">Fri</div>
+            <div class="cal-weekday-label">Sat</div>
+          </div>
+
+          <div class="cal-days-grid">
+            ${daysHTML}
+          </div>
+
+          <div class="cal-streak-bar">
+            <span class="streak-flame">🔥</span>
+            <span class="streak-text">Current streak: <span class="streak-count">${stats.streak}</span> day${stats.streak !== 1 ? 's' : ''}</span>
+          </div>
+        </div>
+      `;
+    }
+
+    function prevMonth() {
+      displayedMonth--;
+      if (displayedMonth < 0) { displayedMonth = 11; displayedYear--; }
+      document.getElementById('main-content').innerHTML = buildCalendarHTML();
+    }
+    function nextMonth() {
+      displayedMonth++;
+      if (displayedMonth > 11) { displayedMonth = 0; displayedYear++; }
+      document.getElementById('main-content').innerHTML = buildCalendarHTML();
+    }
+    function goToToday() {
+      displayedMonth = new Date().getMonth();
+      displayedYear = new Date().getFullYear();
+      document.getElementById('main-content').innerHTML = buildCalendarHTML();
+    }
+
+    function showCompletedItems(dateStr) {
+      const completedItems = getCompletedItemsByDate()[dateStr] || [];
+      const displayDate = new Date(dateStr + 'T12:00:00').toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'});
+      document.getElementById('modal-date-title').textContent = displayDate;
+      document.getElementById('modal-count-line').textContent = `${completedItems.length} item${completedItems.length!==1?'s':''} completed`;
+      const list = document.getElementById('modal-items-list');
+      list.innerHTML = '';
+      if (completedItems.length > 0) {
+        completedItems.forEach(item => {
+          const div = document.createElement('div');
+          div.className = 'modal-item';
+          div.innerHTML = `
+            <div class="modal-item-label">${item.label}</div>
+            <div class="modal-item-meta">
+              <span class="modal-item-section-tag" style="background:${item.color}15;color:${item.color}">${item.section}</span>
+            </div>
+            ${item.url ? `<a class="modal-item-link" href="${item.url}" target="_blank" rel="noopener">${item.url}</a>` : ''}
+          `;
+          list.appendChild(div);
+        });
+      } else {
+        list.innerHTML = '<div class="modal-item" style="color:var(--muted)">No items completed on this day.</div>';
+      }
+      document.getElementById('completed-items-modal').classList.add('open');
+    }
+
+    function closeModal() {
+      document.getElementById('completed-items-modal').classList.remove('open');
+    }
+    document.getElementById('completed-items-modal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('completed-items-modal')) closeModal();
+    });
+
+    // Init
+    openSections.add('s1');
+    renderAll();
+  </script>
+</body>
+
+</html>
